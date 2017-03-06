@@ -130,7 +130,6 @@ function download_bashrc(){
 
 tydzien=`date +%V`
 if [[ $((((10#$tydzien)) % 2)) -eq 0 ]];
-   then echo -e "\n${tydzien} jest parzysty - zmiana Wojtka";
-   else echo -e "\033[1;31m\n${tydzien} jest nieparzysty - zmiana Marcina \033[0m";
+   then echo -e "${tydzien} jest parzysty -\033[1;31m zmiana Wojtka \033[0m";
+   else echo -e "${tydzien} jest nieparzysty -\033[1;35m zmiana Marcina \033[0m";
 fi
-
