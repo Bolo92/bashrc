@@ -1,7 +1,3 @@
-# Variables
-BASHRC_RAW_URL"https://raw.githubusercontent.com/Bolo92/bashrc/master/bashrc"
-BASHRC_FILENAME="bashrc_bolo"
-
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
@@ -126,13 +122,15 @@ export PS1="\[\033[38;5;230m\]\u@\[$(tput sgr0)\]\[\033[38;5;43m\]\H\[$(tput sgr
 # Functions
 
 function download_bashrc(){
-  ssh $@ -t 'cd $HOME ;
-  wget --quiet -O ${BASHRC_FILENAME} -N "$BASHRC_RAW_URL" ;
-  cp ${BASHRC_FILENAME} .'$USER'bashrc  ;
-  bash --rcfile $HOME/.'$USER'bashrc'
+  cd $HOME ;
+  wget --quiet -O .bashrc -N "https://raw.githubusercontent.com/Bolo92/bashrc/master/bashrc" ;
+  source ~/.bashrc
+
+}
 
 tydzien=`date +%V`
 if [[ $((((10#$tydzien)) % 2)) -eq 0 ]];
    then echo -e "\n${tydzien} jest parzysty - zmiana Wojtka";
    else echo -e "\033[1;31m\n${tydzien} jest nieparzysty - zmiana Marcina \033[0m";
 fi
+
