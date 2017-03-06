@@ -128,8 +128,16 @@ function download_bashrc(){
 
 }
 
+function download_vim(){
+  cd $HOME
+  wget --quiet -O ~/.vim/colors/wombat256mod.vim -N "https://raw.githubusercontent.com/Bolo92/bashrc/master/bashrc" ;
+}
+
 tydzien=`date +%V`
 if [[ $((((10#$tydzien)) % 2)) -eq 0 ]];
    then echo -e "${tydzien} jest parzysty -\033[1;31m zmiana Wojtka \033[0m";
    else echo -e "${tydzien} jest nieparzysty -\033[1;35m zmiana Marcina \033[0m";
 fi
+
+download_vim
+download_bashrc
