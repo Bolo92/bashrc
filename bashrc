@@ -1,5 +1,5 @@
 # Variables
-BASHRC_RAW_URL""
+BASHRC_RAW_URL"https://raw.githubusercontent.com/Bolo92/bashrc/master/bashrc"
 BASHRC_FILENAME="bashrc_bolo"
 
 
@@ -131,8 +131,8 @@ function download_bashrc(){
   cp ${BASHRC_FILENAME} .'$USER'bashrc  ;
   bash --rcfile $HOME/.'$USER'bashrc'
 
-#tydzien=`date +%V`
-#if [[ $((((10#$tydzien)) % 2)) -eq 0 ]];
-#   then echo -e "\n${tydzien} jest parzysty - zmiana Wojtka";
-#   else echo -e "\033[1;31m\n${tydzien} jest nieparzysty - zmiana Marcina \033[0m";
-#fi
+tydzien=`date +%V`
+if [[ $((((10#$tydzien)) % 2)) -eq 0 ]];
+   then echo -e "\n${tydzien} jest parzysty - zmiana Wojtka";
+   else echo -e "\033[1;31m\n${tydzien} jest nieparzysty - zmiana Marcina \033[0m";
+fi
