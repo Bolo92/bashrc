@@ -1,3 +1,9 @@
+# Variables
+UrlVimrc="https://raw.githubusercontent.com/Bolo92/bashrc/master/.vimrc"
+UrlBashrc="https://raw.githubusercontent.com/Bolo92/bashrc/master/bashrc"
+UrlVimColor="https://raw.githubusercontent.com/Bolo92/bashrc/master/.vim/colors/wombat256mod.vim"
+VimDirectory="$HOME/.vim"
+VimrcLocation="$HOME/.vimrc"
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
@@ -90,12 +96,6 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
-alias wake='wakeonlan 74:D4:35:8A:7C:43'
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -118,26 +118,47 @@ fi
 
 export PS1="\[\033[38;5;230m\]\u@\[$(tput sgr0)\]\[\033[38;5;43m\]\H\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput sgr0)\]\[\033[38;5;136m\][\[$(tput sgr0)\]\[\033[38;5;106m\]\w]:\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
 
+# Aliases
+alias wake='wakeonlan 74:D4:35:8A:7C:43'
+
 
 # Functions
+function ii()   # Get current host related info.
+{
+    echo -e "\nYou are logged on $HOSTNAME"
+    echo -e "\nAdditionnal information: " ; uname -a
+    echo -e "\nUsers logged on: " ; w -h
+    echo -e "\nCurrent date : " ; date
+    echo -e "\nMachine stats : " ; uptime
+    echo -e "\nMemory stats : " ; free -m 2>&- ;
+#    echo -e "\nLocal IP Address :" ; myip
+#    echo -e "\nOpen connections : "; netstat -pan --inet;
+    echo
+}
 
 function download_bashrc(){
-  cd $HOME ;
-  wget --quiet -O .bashrc -N "https://raw.githubusercontent.com/Bolo92/bashrc/master/bashrc" ;
-  source ~/.bashrc
+    cd $HOME ;
+    curl -s -o bashrc "$UrlBashrc" ;
+#    source ~/.bashrc
 
 }
 
-function download_vim(){
-  cd $HOME
-  wget --quiet -O ~/.vim/colors/wombat256mod.vim -N "https://raw.githubusercontent.com/Bolo92/bashrc/master/bashrc" ;
+function download_vimrc(){
+    cd $HOME
+    curl -s --create-dirs -o ${VimDirectory}/colors/wombat256mod.vim ${UrlVimColor} ;
+    curl -s --create-dirs -o ${VimrcLocation} "$UrlVimrc" ;
 }
 
-tydzien=`date +%V`
-if [[ $((((10#$tydzien)) % 2)) -eq 0 ]];
-   then echo -e "${tydzien} jest parzysty -\033[1;31m zmiana Wojtka \033[0m";
-   else echo -e "${tydzien} jest nieparzysty -\033[1;35m zmiana Marcina \033[0m";
+function tydzien(){
+    tydzien=`date +%V`
+        if [[ $((((10#$tydzien)) % 2)) -eq 0 ]] ;
+    then echo -e "${tydzien} jest parzysty -\033[1;31m zmiana Wojtka \033[0m" ;
+    else echo -e "${tydzien} jest nieparzysty -\033[1;35m zmiana Marcina \033[0m" ;
 fi
+}
 
-download_vim
+# call functions
+download_vimrc
 download_bashrc
+tydzien
+# End
