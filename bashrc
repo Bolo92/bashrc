@@ -139,7 +139,7 @@ function ii()   # Get current host related info.
 function download_bashrc(){
     cd $HOME ;
     curl -s -o bashrc "$UrlBashrc" ;
-#    source ~/.bashrc
+    source ~/.bashrc
 
 }
 
