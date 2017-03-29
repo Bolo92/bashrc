@@ -2,8 +2,10 @@
 UrlVimrc="https://raw.githubusercontent.com/Bolo92/bashrc/master/.vimrc"
 UrlBashrc="https://raw.githubusercontent.com/Bolo92/bashrc/master/.bashrc"
 UrlVimColor="https://raw.githubusercontent.com/Bolo92/bashrc/master/.vim/colors/wombat256mod.vim"
+UrlBashAliases="https://raw.githubusercontent.com/Bolo92/bashrc/master/.bash_aliases"
 VimDirectory="$HOME/.vim"
 VimrcLocation="$HOME/.vimrc"
+BashAliases="$HOME/.bash_aliases"
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
@@ -61,12 +63,12 @@ function ii()   # Get current host related info.
     echo -e "\nMemory stats : " ; free -m 2>&- ;
 #    echo -e "\nLocal IP Address :" ; myip
 #    echo -e "\nOpen connections : "; netstat -pan --inet;
-    echo
 }
 
 function download_bashrc(){
     cd $HOME ;
     wget -q -O .bashrc "$UrlBashrc" ;
+	wget -q -O .bash_aliases "${UrlBashAliases}" ;
 }
 
 function download_vimrc(){
