@@ -7,7 +7,6 @@ alias ls='ls --color=auto'
 alias la='ls -la'
 alias laSh='ls -laSh'
 alias grep='grep --color=auto'
-alias 
 
 # My Alias
 alias v='vim'
