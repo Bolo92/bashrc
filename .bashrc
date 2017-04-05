@@ -50,7 +50,19 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PS1="\[\033[38;5;230m\]\u@\[$(tput sgr0)\]\[\033[38;5;43m\]\H\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput sgr0)\]\[\033[38;5;136m\][\[$(tput sgr0)\]\[\033[38;5;106m\]\w]:\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
+RESET="\[\017\]"
+NORMAL="\[\033[0m\]"
+RED="\[\033[31;1m\]"
+YELLOW="\[\033[38;5;230m\]"
+BLUE="\[\033[38;5;43m\]"
+GRASS="\[\033[38;5;106m\]"
+GREEN="\[\033[38;5;2m\]"
+WHITE="\[\033[38;5;15m\]"
+SMILEY="${GREEN}:)${NORMAL}"
+FROWNY="${RED}:(${NORMAL}"
+SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
+
+export PS1="\`${SELECT}\` ${YELLOW}\u@${BLUE}\H${WHITE}:${GRASS}[\w]: ${NORMAL}"
 
 # Functions
 function ii()   # Get current host related info.
@@ -61,14 +73,15 @@ function ii()   # Get current host related info.
     echo -e "\nCurrent date : " ; date
     echo -e "\nMachine stats : " ; uptime
     echo -e "\nMemory stats : " ; free -m 2>&- ;
-#    echo -e "\nLocal IP Address :" ; myip
-#    echo -e "\nOpen connections : "; netstat -pan --inet;
+    echo -e "\nLocal IP Address :" ; hostname -I
+    echo -e "\nEXternal IP Address :" ; extip
+    echo -e "\nListen ports : "; netstat -ntlp;
 }
 
 function download_bashrc(){
     cd $HOME ;
     wget -q -O .bashrc "$UrlBashrc" ;
-	wget -q -O .bash_aliases "${UrlBashAliases}" ;
+    wget -q -O .bash_aliases "${UrlBashAliases}" ;
 }
 
 function download_vimrc(){
@@ -84,6 +97,44 @@ function tydzien(){
     then echo -e "${tydzien} jest parzysty -\033[1;31m zmiana Wojtka \033[0m" ;
     else echo -e "${tydzien} jest nieparzysty -\033[1;35m zmiana Marcina \033[0m" ;
 fi
+}
+
+function extract() {
+    if [ -f $1 ] ; then
+      case $1 in
+        *.tar.bz2)   tar xjf $1     ;;
+        *.tar.gz)    tar xzf $1     ;;
+        *.bz2)       bunzip2 $1     ;;
+        *.rar)       unrar e $1     ;;
+        *.gz)        gunzip $1      ;;
+        *.tar)       tar xf $1      ;;
+        *.tbz2)      tar xjf $1     ;;
+        *.tgz)       tar xzf $1     ;;
+        *.zip)       unzip $1       ;;
+        *.Z)         uncompress $1  ;;
+        *.7z)        7z x $1        ;;
+        *)     echo "'$1' cannot be extracted via extract()" ;;
+         esac
+     else
+         echo "'$1' is not a valid file"
+     fi
+}
+
+function ipadr() {
+    curl ipinfo.io/$1;
+    echo "";
+}
+
+function extip() {
+    curl -s http://whatismyip.akamai.com/
+}
+
+s() { # do sudo, or sudo the last command if no argument given - source: http://serverfault.com/a/3847
+    if [[ $# == 0 ]]; then
+        sudo $(history -p '!!')
+    else
+        sudo "$@"
+    fi
 }
 
 # call functions
