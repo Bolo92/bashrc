@@ -19,3 +19,6 @@ alias fuck='sudo $(history -p \!\!)'
 
 # print local IP address, because hostname -I is linux only
 alias myip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'"
+
+# Print 20 biggest directories
+alias folders="find . -maxdepth 1 -type d -print | xargs du -h | sort -h | tail -n 20"
