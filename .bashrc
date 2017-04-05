@@ -61,14 +61,15 @@ function ii()   # Get current host related info.
     echo -e "\nCurrent date : " ; date
     echo -e "\nMachine stats : " ; uptime
     echo -e "\nMemory stats : " ; free -m 2>&- ;
-#    echo -e "\nLocal IP Address :" ; myip
-#    echo -e "\nOpen connections : "; netstat -pan --inet;
+    echo -e "\nLocal IP Address :" ; hostname -I
+    echo -e "\nEXternal IP Address :" ; extip
+    echo -e "\nListen ports : "; netstat -ntlp;
 }
 
 function download_bashrc(){
     cd $HOME ;
     wget -q -O .bashrc "$UrlBashrc" ;
-	wget -q -O .bash_aliases "${UrlBashAliases}" ;
+    wget -q -O .bash_aliases "${UrlBashAliases}" ;
 }
 
 function download_vimrc(){
@@ -84,6 +85,36 @@ function tydzien(){
     then echo -e "${tydzien} jest parzysty -\033[1;31m zmiana Wojtka \033[0m" ;
     else echo -e "${tydzien} jest nieparzysty -\033[1;35m zmiana Marcina \033[0m" ;
 fi
+}
+
+function extract() {
+    if [ -f $1 ] ; then
+      case $1 in
+        *.tar.bz2)   tar xjf $1     ;;
+        *.tar.gz)    tar xzf $1     ;;
+        *.bz2)       bunzip2 $1     ;;
+        *.rar)       unrar e $1     ;;
+        *.gz)        gunzip $1      ;;
+        *.tar)       tar xf $1      ;;
+        *.tbz2)      tar xjf $1     ;;
+        *.tgz)       tar xzf $1     ;;
+        *.zip)       unzip $1       ;;
+        *.Z)         uncompress $1  ;;
+        *.7z)        7z x $1        ;;
+        *)     echo "'$1' cannot be extracted via extract()" ;;
+         esac
+     else
+         echo "'$1' is not a valid file"
+     fi
+}
+
+function ipadr() {
+   curl ipinfo.io/$1;
+   echo "";
+}
+
+function extip() {
+curl -s http://whatismyip.akamai.com/
 }
 
 # call functions
