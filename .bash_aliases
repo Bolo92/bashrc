@@ -22,3 +22,15 @@ alias myip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-
 
 # Print 20 biggest directories
 alias folders="find . -maxdepth 1 -type d -print | xargs du -h | sort -h | tail -n 20"
+
+# Scan 100 most common ports
+alias nmap-top="nmap -F"
+
+# Full TCP port scan with service version detection
+alias nmap-fast="nmap -sS -sV -T4"
+
+# Scan all 65535 ports
+alias nmap-all="nmap -p- -sV -sS -T4"
+
+# Ping scans the network, listing machines that respond to ping.
+alias nmap-ping="nmap -sP"
