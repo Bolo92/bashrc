@@ -137,6 +137,16 @@ s() { # do sudo, or sudo the last command if no argument given - source: http://
     fi
 }
 
+#bu - Back Up a file. Usage "bu filename.txt"
+bu () {
+    cp $1 ${1}-`date +%Y-%m-%d-%H_%M`.backup ;
+}
+
+# check basic info about SSL cert installed on domain. Usage check_ssl example.com
+check_ssl () {
+echo | openssl s_client -servername $1 -connect ${1}:443 2>/dev/null | openssl x509 -noout -dates -issuer -subject
+}
+
 # call functions
 download_vimrc
 download_bashrc

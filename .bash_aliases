@@ -8,6 +8,19 @@ alias la='ls -la'
 alias laSh='ls -laSh'
 alias grep='grep --color=auto'
 
+#apt
+alias install='sudo apt-get install'
+alias uninstall='sudo apt-get remove'
+alias reinstall='sudo apt-get --reinstall install'
+alias remove='sudo apt-get remove'
+alias purge='sudo apt-get remove --purge'
+alias update='sudo apt-get update'
+alias upgrade='sudo apt-get upgrade'
+alias clean='sudo apt-get autoclean && sudo apt-get autoremove'
+alias search='apt-cache search'
+alias show='apt-cache show'
+alias policy=apt-cache policy'
+
 # My Alias
 alias v='vim'
 
