@@ -91,14 +91,6 @@ function download_vimrc(){
     wget -q -O ${VimrcLocation} "$UrlVimrc" ;
 }
 
-function tydzien(){
-    tydzien=`date +%V`
-        if [[ $((((10#$tydzien)) % 2)) -eq 0 ]] ;
-    then echo -e "${tydzien} jest parzysty -\033[1;31m zmiana Wojtka \033[0m" ;
-    else echo -e "${tydzien} jest nieparzysty -\033[1;35m zmiana Marcina \033[0m" ;
-fi
-}
-
 function extract() {
     if [ -f $1 ] ; then
       case $1 in
@@ -150,5 +142,4 @@ echo | openssl s_client -servername $1 -connect ${1}:443 2>/dev/null | openssl x
 # call functions
 download_vimrc
 download_bashrc
-tydzien
 # End
